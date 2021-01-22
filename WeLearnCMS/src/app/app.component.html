@@ -1,0 +1,10 @@
+<cms-header (selectedFeatureEvent)="selectedFeature = $event"></cms-header>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <cms-documents *ngIf="selectedFeature === 'documents'"></cms-documents>
+      <cms-contacts *ngIf="selectedFeature === 'contacts' || (selectedFeature != 'documents' && selectedFeature != 'messages') "></cms-contacts>
+      <cms-message-list *ngIf="selectedFeature === 'messages'"></cms-message-list>
+    </div>
+  </div>
+</div>
