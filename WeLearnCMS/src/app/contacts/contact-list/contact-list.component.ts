@@ -7,6 +7,7 @@ import {
 import {
   Contact
 } from '../contact.model';
+import { ContactService } from '../contact.service';
 
 @Component({
   selector: 'cms-contact-list',
@@ -14,22 +15,16 @@ import {
   styleUrls: ['./contact-list.component.css']
 })
 export class ContactListComponent implements OnInit {
-  @Output() selectedContactEvent = new EventEmitter<Contact>();
+  contacts: Contact[] = [];
 
-  contacts: Contact[] = [
-    new Contact("1", "R. Kent Jackson", "jacksonk@byui.edu", "208-496-3771",
-      "https://web.byui.edu/Directory/Employee/jacksonk.jpg", null),
-    new Contact("2", "Rex Barzee", "barzeer@byui.edu", "208-496-3768",
-      "https://web.byui.edu/Directory/Employee/barzeer.jpg", null),
-    new Contact("3", "Jordan Dickson", "dic15015@byui.edu", "253-363-7622",
-      "https://web.byui.edu/Directory/Employee/barzeer.jpg", null)
-  ];
-  constructor() {}
+  constructor(private contactService: ContactService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contacts = this.contactService.getContacts();
+  }
 
   onSelected(contact: Contact) {
-    this.selectedContactEvent.emit(contact);
+    this.contactService.contactSelectedEvent.emit(contact);
   }
 
 }
