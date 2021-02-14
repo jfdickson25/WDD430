@@ -10,7 +10,7 @@ import { MessageService } from '../message.service';
 export class MessageEditComponent implements OnInit {
   @ViewChild('msgText') msgText: ElementRef; 
   @ViewChild('subject') subject: ElementRef; 
-  currentSender = "2"; 
+  currentSender = "1"; 
   
   constructor(private messageService: MessageService) { }
 

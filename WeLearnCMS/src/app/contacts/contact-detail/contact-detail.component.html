@@ -5,10 +5,8 @@
                 <div class="col-xs-12">
                     <img class="img-responsive pull-left" style="max-height: 150px;" [src]="contact.imageUrl" alt="{{ contact.name }}">
                     <span class="pull-right">
-                        <button class="btn btn-primary btn-space">Edit</button>
-                        <button class="btn btn-danger btn-space">
-                            Delete
-                        </button>
+                        <a class="btn btn-primary btn-space" [routerLink]="['/contacts', contact.id, 'edit']">Edit</a>
+                        <a class="btn btn-danger btn-space" (click)="onDelete()">Delete</a>
                     </span>
                 </div>
             </div>
