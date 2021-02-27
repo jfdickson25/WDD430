@@ -68,11 +68,17 @@ export class DocumentService {
       return;
     }
 
-    const pos = this.documents.indexOf(originalDocument);
+    console.log(this.documents)
+
+    const pos: number = this.documents.indexOf(originalDocument);
+
+    console.log(pos);
 
     if(pos < 0) {
       return;
     }
+
+    console.log("New document: ", newDocument, "Old document: ", originalDocument)
 
     newDocument.id = originalDocument.id;
     this.documents[pos] = newDocument;

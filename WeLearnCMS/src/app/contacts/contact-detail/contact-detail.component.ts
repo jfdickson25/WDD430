@@ -10,12 +10,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class ContactDetailComponent implements OnInit {
   @Input() contact: Contact;
+  groupContacts: Contact[];
   constructor(private contactService: ContactService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(
       (params: Params) => {
         this.contact = this.contactService.getContact(params['id']);
+        this.groupContacts = this.contact.group;
       }
     )
   }

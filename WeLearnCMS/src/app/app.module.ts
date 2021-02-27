@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { DndModule } from 'ng2-dnd';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header.component';
@@ -40,7 +42,9 @@ import { ContactEditComponent } from './contacts/contact-edit/contact-edit.compo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    DndModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
