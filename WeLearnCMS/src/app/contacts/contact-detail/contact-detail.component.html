@@ -1,11 +1,11 @@
 <div class="row panel panel-default">
         <div class="col-xs-12 panel-heading">
-            <h3>{{ contact.name }}</h3>
+            <h3>{{ contact?.name }}</h3>
             <div class="row">
                 <div class="col-xs-12">
-                    <img class="img-responsive pull-left" style="max-height: 150px;" [src]="contact.imageUrl" alt="{{ contact.name }}">
+                    <img class="img-responsive pull-left" style="max-height: 150px;" [src]="contact?.imageUrl" alt="{{ contact?.name }}">
                     <span class="pull-right">
-                        <a class="btn btn-primary btn-space" [routerLink]="['/contacts', contact.id, 'edit']">Edit</a>
+                        <a class="btn btn-primary btn-space" [routerLink]="['/contacts', contact?.id, 'edit']">Edit</a>
                         <a class="btn btn-danger btn-space" (click)="onDelete()">Delete</a>
                     </span>
                 </div>
@@ -13,10 +13,10 @@
         </div>
         <div class="col-xs-12 panel-body">
             <div>
-                <span><b>Email:</b></span><span> {{ contact.email }}</span>
+                <span><b>Email:</b></span><span> {{ contact?.email }}</span>
             </div>
             <div>
-                <span><b>Phone:</b></span><span> {{ contact.phone }} </span>
+                <span><b>Phone:</b></span><span> {{ contact?.phone }} </span>
             </div>
             <div class="col-xs-12 panel-body" *ngIf="groupContacts">
                 <div class="form-group">

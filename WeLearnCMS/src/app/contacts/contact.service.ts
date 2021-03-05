@@ -1,4 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Contact } from './contact.model';
 import {MOCKCONTACTS} from './MOCKCONTACTS';
@@ -12,12 +13,33 @@ export class ContactService {
   contacts: Contact[] = [];
   maxContactId: number;
 
-  constructor() { 
-    this.contacts = MOCKCONTACTS;
+  constructor(private http: HttpClient) { 
+    this.contacts = this.getContacts();
   }
 
   getContacts(): Contact[] {
+    this.http.get<Contact[]>('https://welearncms-default-rtdb.firebaseio.com/contacts.json')
+    .subscribe( (contacts: Contact[]) => {
+      this.contacts = contacts;
+      this.maxContactId = this.getMaxId();
+      this.contacts.sort();
+      this.contactListChangedEvent.next(this.contacts.slice());
+    }, (error:any) => {
+      console.log(error);
+    })
+
     return this.contacts.slice();
+  }
+
+  storeContacts() {
+    const contacts = JSON.stringify(this.contacts);
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+
+    this.http.put('https://welearncms-default-rtdb.firebaseio.com/contacts.json', contacts, {'headers': headers})
+    .subscribe(() => {
+      this.contactListChangedEvent.next(this.contacts.slice());
+    });
   }
 
   getContact(id: string): Contact {
@@ -33,7 +55,7 @@ export class ContactService {
       return;
    }
    this.contacts.splice(pos, 1);
-   this.contactListChangedEvent.next(this.contacts.slice());
+   this.storeContacts();
 
   }
 
@@ -58,9 +80,7 @@ export class ContactService {
     this.maxContactId++;
     newContact.id = String(this.maxContactId);
     this.contacts.push(newContact);
-    const contactsListClone = this.contacts.slice();
-
-    this.contactListChangedEvent.next(contactsListClone);
+    this.storeContacts();
   }
 
   updateContact(originalContact: Contact, newContact: Contact) {
@@ -76,8 +96,7 @@ export class ContactService {
 
     newContact.id = originalContact.id;
     this.contacts[pos] = newContact;
-    const contactsListClone = this.contacts.slice();
-    this.contactListChangedEvent.next(contactsListClone);
+    this.storeContacts();
   }
 
 }
