@@ -11,10 +11,10 @@ export class MessageService {
   messages: Message[] = [];
   maxMessageId: number;
   constructor(private http: HttpClient) { 
-    this.messages = this.getMessages();
+    this.getMessages();
   }
 
-  getMessages(): Message[] {
+  getMessages() {
     this.http.get<Message[]>('https://welearncms-default-rtdb.firebaseio.com/messages.json')
     .subscribe( (messages: Message[]) => {
       this.messages = messages;
@@ -24,8 +24,6 @@ export class MessageService {
     }, (error:any) => {
       console.log(error);
     })
-
-    return this.messages.slice();
   }
 
   storeMessages() {

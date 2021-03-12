@@ -14,10 +14,10 @@ export class DocumentService {
   documentListChangedEvent = new Subject<Document[]>();
 
   constructor(private http: HttpClient) {
-    this.documents = this.getDocuments();
+    this.getDocuments();
   }
 
-  getDocuments(): Document[] {
+  getDocuments() {
     this.http.get<Document[]>('https://welearncms-default-rtdb.firebaseio.com/documents.json')
     .subscribe( (documents: Document[]) => {
       this.documents = documents;
@@ -27,8 +27,6 @@ export class DocumentService {
     }, (error:any) => {
       console.log(error);
     })
-
-    return this.documents.slice();
   }
 
   getDocument(id: string): Document {

@@ -13,11 +13,11 @@ export class ContactService {
   contacts: Contact[] = [];
   maxContactId: number;
 
-  constructor(private http: HttpClient) { 
-    this.contacts = this.getContacts();
+  constructor(private http: HttpClient) {
+    this.getContacts();
   }
 
-  getContacts(): Contact[] {
+  getContacts() {
     this.http.get<Contact[]>('https://welearncms-default-rtdb.firebaseio.com/contacts.json')
     .subscribe( (contacts: Contact[]) => {
       this.contacts = contacts;
@@ -27,8 +27,6 @@ export class ContactService {
     }, (error:any) => {
       console.log(error);
     })
-
-    return this.contacts.slice();
   }
 
   storeContacts() {
