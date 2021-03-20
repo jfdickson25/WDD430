@@ -1,7 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Message } from './message.model';
-import { MOCKMESSAGES } from './MOCKMESSAGES';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +14,9 @@ export class MessageService {
   }
 
   getMessages() {
-    this.http.get<Message[]>('https://welearncms-default-rtdb.firebaseio.com/messages.json')
+    this.http.get<Message[]>('http://localhost:3000/messages')
     .subscribe( (messages: Message[]) => {
+      console.log("Messages: ", messages);
       this.messages = messages;
       this.maxMessageId = this.getMaxId();
       this.messages.sort();
@@ -26,24 +26,33 @@ export class MessageService {
     })
   }
 
-  storeMessages() {
-    const messages = JSON.stringify(this.messages);
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-
-    this.http.put('https://welearncms-default-rtdb.firebaseio.com/messages.json', messages, {'headers': headers})
-    .subscribe(() => {
-      this.messageChangedEvent.next(this.messages.slice());
-    });
+  sortAndSend() {
+    this.messages.sort();
+    this.messageChangedEvent.next(this.messages.slice());
   }
 
   getMessage(id: string): Message {
     return this.messages.find(message => message.id === id);
   }
 
-  addMessage(message: Message): void {
-    this.messages.push(message);
-    this.storeMessages();
+  addMessage(message: Message) {
+    if (!message) {
+      return;
+    }
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    // add to database
+    this.http.post<{ message: Message }>('http://localhost:3000/messages',
+      message,
+      { headers: headers })
+      .subscribe(
+        (responseData) => {
+          // add new message to messages
+          this.messages.push(responseData.message);
+          this.sortAndSend();
+        }
+      );
   }
 
   getMaxId(): number {

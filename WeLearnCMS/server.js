@@ -2,6 +2,7 @@
 var express = require('express');
 var path = require('path');
 var http = require('http');
+var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -67,3 +68,14 @@ const server = http.createServer(app);
 server.listen(port, function() {
   console.log('API running on localhost: ' + port)
 });
+
+mongoose.connect('mongodb://localhost:27017/cms',
+   { useNewUrlParser: true, useUnifiedTopology: true }, (err, res) => {
+      if (err) {
+         console.log('Connection failed: ' + err);
+      }
+      else {
+         console.log('Connected to database!');
+      }
+   }
+);
