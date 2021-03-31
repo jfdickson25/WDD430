@@ -1,0 +1,16 @@
+<form class="row g-3 addForm mt-3 p-3 pt-0" (ngSubmit)="onSubmit()" #f="ngForm" #addForm>
+    <div class="col-12">
+        <mat-icon [routerLink]="'/memories/' + personId" [ngStyle]="{'color':'red'}">
+            close
+        </mat-icon>
+    </div>
+    <div class="col-4">
+      <label for="year" class="form-label">Year of memory</label>
+      <input type="number" class="form-control" id="year" name="year" max="2025" min="1900">
+    </div>
+    <div class="col-12">
+      <label for="event" class="form-label">Memory</label>
+      <textarea class="form-control" id="event" name="event" rows="10"></textarea>
+    </div>
+    <button class="btn btn-success col-3 m-2" type="submit">Add</button>
+</form>

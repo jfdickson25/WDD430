@@ -1,0 +1,20 @@
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(206, 206, 206);
+}
+
+.active {
+  text-decoration: underline;
+}
+
+.link {
+    padding: 0 14px;
+}
+
+.example-spacer {
+flex: 1 1 auto;
+}

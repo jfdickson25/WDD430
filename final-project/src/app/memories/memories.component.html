@@ -1,0 +1,26 @@
+<button class="mt-2 mb-2 btn btn-warning" [routerLink]="'/people'">
+    < Back to everyone
+</button>
+
+<div class="row m-0 p-0 justify-content-center">
+    <img *ngIf='person' src="../../assets/img/{{person.imgUrl}}" class="col-3" alt="">
+</div>
+<h1 *ngIf='person'>
+    {{person.firstName}} {{person.lastName}}
+</h1>
+<div class="row m-0 p-0 ">
+    <div class="col-6 mt-3 mb-3">
+        <a [routerLink]="'/memories/' + personId + '/add'" class="btn btn-dark col-12 mt-3">
+            Add Memory
+        </a>
+        <div *ngIf='memories.length > 0; else noMemories'>
+            <app-memory *ngFor="let memory of memories" [memory]='memory'></app-memory>
+        </div>
+        <ng-template #noMemories>
+            <h1 class="mt-2">No memories for this individual</h1>
+        </ng-template>
+    </div>
+    <div class="col-5 mt-3 mb-3">
+        <router-outlet></router-outlet>
+    </div>
+</div>

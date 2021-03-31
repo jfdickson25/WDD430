@@ -1,0 +1,20 @@
+<form class="row g-3 addForm mt-3 p-3 pt-0" (ngSubmit)="onSubmit()" #editForm>
+    <div class="col-12">
+        <mat-icon [routerLink]="'/people'" [ngStyle]="{'color':'red'}">
+            close
+        </mat-icon>
+    </div>
+    <div class="col-md-6">
+      <label for="firstName" class="form-label">First Name</label>
+      <input type="text" class="form-control" id="firstName" name="firstName">
+    </div>
+    <div class="col-md-6">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input type="text" class="form-control" id="lastName" name="lastName">
+    </div>
+    <div class="col-md-6">
+      <label for="imgUrl" class="form-label">Image URL</label>
+      <input type="text" class="form-control" id="imgUrl" name="imgUrl">
+    </div>
+    <button class="btn btn-success col-7 m-2" type="submit">Edit</button>
+</form>

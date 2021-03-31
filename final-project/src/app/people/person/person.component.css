@@ -1,0 +1,23 @@
+mat-card:hover {
+    cursor: pointer;
+}
+
+.name {
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: ease-out;
+}
+.name:hover {
+    transform: translateX(20px);
+}
+
+.card-container {
+    /*  not needed styles to reflect it */ 
+    padding: 10px;
+    color: white;
+    width: 500px;
+  
+    /* needed styles below */
+    display: flex;
+    justify-content: space-between;
+  }
